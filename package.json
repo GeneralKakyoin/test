@@ -1,8 +1,8 @@
 {
-	"name": "HardCoreClub-STRICT",
-  "version": "1.1.10-STRICT",
+	"name": "strict-bcx-current",
+	"version": "1.1.12-STRICT",
 	"repository": "git@github.com:Rufflan/HardCroeClub.git",
-	"author": "Rufflan (hwkm0818@gmail.com)",
+	"author": "Rufflan & contributors",
 	"license": "GPL-3.0",
 	"private": true,
 	"engines": {
@@ -13,7 +13,7 @@
 		"dev": "cross-env TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack serve --progress",
 		"typecheck": "tsc --noEmit -p .",
 		"typecheck:test": "tsc --noEmit -p ./test",
-		"lint": "eslint --max-warnings 10 .",
+		"lint": "eslint --max-warnings 0 .",
 		"lint:fix": "eslint --fix .",
 		"test": "jest"
 	},
@@ -34,7 +34,7 @@
 		"@types/jest": "^29.5.6",
 		"@typescript-eslint/eslint-plugin": "^8.21.0",
 		"@typescript-eslint/parser": "^8.21.0",
-		"bc-stubs": "^121.0.0",
+		"bc-stubs": "^123.0.0-Beta.3",
 		"clean-webpack-plugin": "^4.0.0",
 		"copy-webpack-plugin": "^12.0.2",
 		"cross-env": "^7.0.3",

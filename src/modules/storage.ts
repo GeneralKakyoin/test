@@ -11,6 +11,17 @@ import { sendHiddenBeep } from "./messaging";
 import { BCX_setTimeout } from "../BCXContext";
 import { reportManualError } from "../errorReporting";
 
+const STRICTBCX_STORAGE_KEY = "StrictBCX";
+const STRICTBCX_STORAGE_PREFIX = "StrictBCX";
+
+function getStrictOnlineSettings() {
+	return Player.OnlineSettings as unknown as Record<string, unknown> | undefined;
+}
+
+function getStrictExtensionSettings() {
+	return Player.ExtensionSettings as Record<string, unknown>;
+}
+
 export enum StorageLocations {
 	OnlineSettings = 0,
 	LocalStorage = 1,
@@ -39,18 +50,21 @@ export function finalizeFirstTimeInit() {
 }
 
 function getLocalStorageName(): string {
-	return `BCX_${Player.MemberNumber}`;
+	return `${STRICTBCX_STORAGE_PREFIX}_${Player.MemberNumber}`;
 }
 
 function getLocalStorageNameBackup(): string {
-	return `BCX_${Player.MemberNumber}_backup`;
+	return `${STRICTBCX_STORAGE_PREFIX}_${Player.MemberNumber}_backup`;
 }
 
 function storageClearData() {
+	const onlineSettings = getStrictOnlineSettings();
+	const extensionSettings = getStrictExtensionSettings();
+
 	// Online settings storage
-	if (Player.OnlineSettings?.BCX !== undefined) {
-		delete Player.OnlineSettings.BCX;
-		Player.OnlineSettings.BCXDataCleared = Date.now();
+	if (onlineSettings?.[STRICTBCX_STORAGE_KEY] !== undefined) {
+		delete onlineSettings[STRICTBCX_STORAGE_KEY];
+		onlineSettings[`${STRICTBCX_STORAGE_KEY}DataCleared`] = Date.now();
 		ServerAccountUpdate.QueueData({ OnlineSettings: Player.OnlineSettings }, true);
 	}
 
@@ -59,9 +73,9 @@ function storageClearData() {
 	localStorage.removeItem(getLocalStorageNameBackup());
 
 	// Extension settings
-	if (Player.ExtensionSettings.BCX != null) {
-		Player.ExtensionSettings.BCX = null;
-		ServerPlayerExtensionSettingsSync("BCX", true);
+	if (extensionSettings[STRICTBCX_STORAGE_KEY] != null) {
+		extensionSettings[STRICTBCX_STORAGE_KEY] = null;
+		ServerPlayerExtensionSettingsSync(STRICTBCX_STORAGE_KEY, true);
 	}
 }
 
@@ -146,13 +160,13 @@ export function modStorageSync() {
 	const finalSave = `${formatVersion}:${serializedData}:${authString}`;
 
 	if (modStorageLocation === StorageLocations.OnlineSettings) {
-		Player.OnlineSettings.BCX = finalSave;
+		getStrictOnlineSettings()![STRICTBCX_STORAGE_KEY] = finalSave;
 		ServerAccountUpdate.QueueData({ OnlineSettings: Player.OnlineSettings });
 	} else if (modStorageLocation === StorageLocations.LocalStorage) {
 		localStorage.setItem(getLocalStorageName(), finalSave);
 	} else if (modStorageLocation === StorageLocations.ExtensionSettings) {
-		Player.ExtensionSettings.BCX = finalSave;
-		ServerPlayerExtensionSettingsSync("BCX", true);
+		getStrictExtensionSettings()[STRICTBCX_STORAGE_KEY] = finalSave;
+		ServerPlayerExtensionSettingsSync(STRICTBCX_STORAGE_KEY, true);
 	} else {
 		throw new Error(`Unknown StorageLocation`);
 	}
@@ -187,7 +201,7 @@ export class ModuleStorage extends BaseModule {
 				alert("BCX: Failed to load data, please see console for more details");
 				return false;
 			}
-			saved = Player.ExtensionSettings.BCX;
+			saved = getStrictExtensionSettings()[STRICTBCX_STORAGE_KEY];
 			modStorageLocation = StorageLocations.ExtensionSettings;
 		}
 
@@ -197,7 +211,7 @@ export class ModuleStorage extends BaseModule {
 				alert("HardCoreClub: Failed to load data, please see console for more details");
 				return false;
 			}
-			saved = Player.OnlineSettings.BCX;
+			saved = getStrictOnlineSettings()?.[STRICTBCX_STORAGE_KEY];
 			modStorageLocation = StorageLocations.OnlineSettings;
 		}
 
@@ -303,10 +317,11 @@ export class ModuleStorage extends BaseModule {
 
 	run() {
 		if (modStorageLocation === StorageLocations.ExtensionSettings) {
+			const onlineSettings = getStrictOnlineSettings();
 			// If we loaded from extension settings, delete possible old online settings
-			if (Player.OnlineSettings?.BCX !== undefined || Player.OnlineSettings?.BCXDataCleared !== undefined) {
-				delete Player.OnlineSettings.BCX;
-				delete Player.OnlineSettings.BCXDataCleared;
+			if (onlineSettings?.[STRICTBCX_STORAGE_KEY] !== undefined || onlineSettings?.[`${STRICTBCX_STORAGE_KEY}DataCleared`] !== undefined) {
+				delete onlineSettings[STRICTBCX_STORAGE_KEY];
+				delete onlineSettings[`${STRICTBCX_STORAGE_KEY}DataCleared`];
 				ServerAccountUpdate.QueueData({ OnlineSettings: Player.OnlineSettings });
 			}
 		} else if (modStorageLocation === StorageLocations.OnlineSettings) {

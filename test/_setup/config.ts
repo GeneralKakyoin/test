@@ -1,4 +1,4 @@
-import type { BrowserContext, Browser, PuppeteerLaunchOptions } from "puppeteer";
+import type { BrowserContext, Browser, LaunchOptions } from "puppeteer";
 
 export type TestContext = {
 	cleanup?: (() => Promise<void> | void)[];
@@ -13,7 +13,7 @@ export type Config = {
 	browserContext: "default" | "incognito";
 	exitOnPageError: true;
 	runBeforeUnloadOnClose?: boolean;
-	launch: PuppeteerLaunchOptions;
+	launch: LaunchOptions;
 };
 
 export type CoverageData = import("inspector").Profiler.ScriptCoverage[];
@@ -40,7 +40,7 @@ export function getConfig(): Config {
 		return {
 			...DEFAULT_CONFIG,
 			launch: {
-				headless: "new",
+				headless: true,
 				args: [
 					"--no-sandbox",
 					"--disable-setuid-sandbox",
@@ -54,7 +54,7 @@ export function getConfig(): Config {
 	return {
 		...DEFAULT_CONFIG,
 		launch: {
-			headless: "new",
+			headless: true,
 		},
 	};
 }

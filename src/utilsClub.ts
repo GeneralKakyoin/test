@@ -557,14 +557,16 @@ export function isRoomPrivate(room: ServerChatRoomData | ServerChatRoomSearchDat
 	if (typeof ChatRoomDataIsPrivate !== "undefined") {
 		return ChatRoomDataIsPrivate(room);
 	}
+	const legacyRoom = room as typeof room & { Private?: boolean };
 	// eslint-disable-next-line deprecation/deprecation
-	return (room.Visibility && !CommonArraysEqual(room?.Visibility, ChatRoomVisibilityMode.PUBLIC)) ?? room.Private ?? false;
+	return (room.Visibility && !CommonArraysEqual(room.Visibility, ChatRoomVisibilityMode.PUBLIC)) ?? legacyRoom.Private ?? false;
 }
 
 export function isRoomLocked(room: ServerChatRoomData | ServerChatRoomSearchData | ServerChatRoomSettings) {
 	if (typeof ChatRoomDataIsLocked !== "undefined") {
 		return ChatRoomDataIsLocked(room);
 	}
+	const legacyRoom = room as typeof room & { Locked?: boolean };
 	// eslint-disable-next-line deprecation/deprecation
-	return (room.Access && !CommonArraysEqual(room?.Access, ChatRoomAccessMode.PUBLIC)) ?? room.Locked ?? false;
+	return (room.Access && !CommonArraysEqual(room.Access, ChatRoomAccessMode.PUBLIC)) ?? legacyRoom.Locked ?? false;
 }

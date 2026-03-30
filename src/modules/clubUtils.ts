@@ -297,10 +297,10 @@ export class ModuleClubUtils extends BaseModule {
 					}
 					if (subcommand === "locked") {
 						const Locked = args[1] === "yes" ? true : false;
-						updateChatroom({ Locked });
+						updateChatroom({ Access: Locked ? ChatRoomAccessMode.ADMIN_WHITELIST : ChatRoomAccessMode.PUBLIC });
 					} else {
 						const Private = args[1] === "yes" ? true : false;
-						updateChatroom({ Private });
+						updateChatroom({ Visibility: Private ? ChatRoomVisibilityMode.ADMIN_WHITELIST : ChatRoomVisibilityMode.PUBLIC });
 					}
 				} else if (subcommand === "size" || subcommand === "limit" || subcommand === "slots") {
 					const size = args.length === 2 && /^[0-9]+$/.test(args[1]) && Number.parseInt(args[1], 10);
@@ -385,8 +385,8 @@ export class ModuleClubUtils extends BaseModule {
 						Name: template.Name,
 						Description: template.Description,
 						Background: template.Background,
-						Private: template.Private,
-						Locked: template.Locked,
+						Visibility: "Private" in template ? (template.Private ? ChatRoomVisibilityMode.ADMIN_WHITELIST : ChatRoomVisibilityMode.PUBLIC) : template.Visibility,
+						Access: "Locked" in template ? (template.Locked ? ChatRoomAccessMode.ADMIN_WHITELIST : ChatRoomAccessMode.PUBLIC) : template.Access,
 						Game: template.Game,
 						Admin: template.Admin,
 						Whitelist: template.Whitelist,

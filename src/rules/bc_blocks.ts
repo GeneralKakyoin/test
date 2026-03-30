@@ -589,7 +589,7 @@ export function initRules_bc_blocks() {
 			hookFunction("ChatSearchCreateGridRoomTooltip", 5, (args, next) => {
 				const tooltips = next(args);
 				const [roomResult] = args;
-				if (isRoomBlocked(roomResult.Name)) {
+				if (tooltips && isRoomBlocked(roomResult.Name)) {
 					tooltips.appendChild(ElementCreate({
 						tag: "span",
 						classList: ["chat-search-room-tooltip-entry", "chat-search-room-tooltip-bcx-blocked"],

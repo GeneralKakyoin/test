@@ -951,10 +951,10 @@ export class ModuleCurses extends BaseModule {
 
 		if (GameVersion === "R121") {
 			hookFunction("ColorPickerDraw", 0, (args, next) => {
-				const Callback = args[5] as (Color: string) => void;
+				const Callback = args[5] as unknown as (Color: string) => void;
 				if (Callback === ItemColorOnPickerChange) {
 					args[5] = (color: any) => {
-						if (ItemColorCharacter === Player && ItemColorItem) {
+						if (ItemColorCharacter === Player && ItemColorItem && ItemColorState) {
 							// Original code
 							const newColors = ItemColorState.colors.slice();
 							ItemColorPickerIndices.forEach(i => newColors[i] = color);
@@ -982,7 +982,6 @@ export class ModuleCurses extends BaseModule {
 				return next(args);
 			});
 		} else {
-			// @ts-expect-error: Waiting for the R122 types here
 			hookFunction("ColorPickerReload", 0, (_args, _next) => {
 				// Shenanigens to get rid of the `never` types due to a lack of R122 `ColorPickerReload` declarations
 				const args = _args as [options?: null | ColorPickerInitOptions];

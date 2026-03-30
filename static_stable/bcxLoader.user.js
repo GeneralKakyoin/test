@@ -1,15 +1,17 @@
 // ==UserScript==
-// @name         HardCoreClub (Loader)
-// @namespace    BCX
-// @version      1.0.7
-// @description  Loader of Jomshir's "Bondage Club Extended" mod with the STRICT modification by Kink Side Of Moon
-// @author       Jomshir98/Kink Side of Moon
+// @name         StrictBCX Current (Loader)
+// @namespace    StrictBCX
+// @version      1.1.12
+// @description  Loads the current StrictBCX remake from GitHub Pages
+// @author       Rufflan & contributors
 // @include      /^https:\/\/(www\.)?bondageprojects\.elementfx\.com\/R\d+\/(BondageClub|\d+)(\/((index|\d+)\.html)?)?$/
 // @include      /^https:\/\/(www\.)?bondage-europe\.com\/R\d+\/(BondageClub|\d+)(\/((index|\d+)\.html)?)?$/
 // @include      /^https:\/\/(www\.)?bondage-asia\.com\/club\/R\d+(\/((index|\d+)\.html)?)?$/
-// @homepage     https://github.com/kinksideofthemoon/StrictBCX.github.io
-// @source       https://github.com/kinksideofthemoon/StrictBCX.github.io
-// @downloadURL  https://github.com/kinksideofthemoon/StrictBCX.github.io
+// @homepageURL  https://github.com/Rufflan/HardCroeClub
+// @supportURL   https://github.com/Rufflan/HardCroeClub/issues
+// @source       https://github.com/Rufflan/HardCroeClub
+// @updateURL    https://rufflan.github.io/HardCroeClub/bcxLoader.user.js
+// @downloadURL  https://rufflan.github.io/HardCroeClub/bcxLoader.user.js
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
@@ -21,7 +23,7 @@ setTimeout(
 			const n = document.createElement("script");
 			n.setAttribute("language", "JavaScript");
 			n.setAttribute("crossorigin", "anonymous");
-			n.setAttribute("src", "https://rufflan.github.io/HardCroeClub/devel/bcx.js");
+			n.setAttribute("src", "https://rufflan.github.io/HardCroeClub/bcx.js");
 			n.onload = () => n.remove();
 			document.head.appendChild(n);
 		}

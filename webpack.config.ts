@@ -16,6 +16,7 @@ const STATIC_DIR = join(__dirname, "static");
 const STATIC_DEVEL_DIR = join(__dirname, "static_devel");
 const STATIC_STABLE_DIR = join(__dirname, "static_stable");
 const RESOURCES_DIR = join(__dirname, "resources");
+const FUSAM_DIR = join(__dirname, "fusam");
 
 const BCX_SAVE_AUTH = typeof process.env.BCX_SAVE_AUTH === "string" ? process.env.BCX_SAVE_AUTH : "";
 
@@ -58,7 +59,10 @@ export default async function (env: WebpackEnv): Promise<Configuration> {
 			},
 		},
 		devtool: env.prod ? "source-map" : "inline-source-map",
-		entry: join(SRC_DIR, "index.ts"),
+		entry: {
+			bcx: join(SRC_DIR, "standalone.ts"),
+			"strict-bcx-addon": join(SRC_DIR, "addon.ts"),
+		},
 		mode,
 		module: {
 			rules: GenerateRules(env),
@@ -71,10 +75,10 @@ export default async function (env: WebpackEnv): Promise<Configuration> {
 							passes: 2,
 						},
 						format: {
-							preamble: "// BCX: Bondage Club Extended STRICT",
+							preamble: "// StrictBCX current remake",
 						},
 					},
-					include: "bcx.js",
+					include: /(?:bcx|strict-bcx-addon)\.js$/i,
 				}),
 			],
 			usedExports: true,
@@ -82,7 +86,7 @@ export default async function (env: WebpackEnv): Promise<Configuration> {
 		},
 		output: {
 			path: DIST_DIR,
-			filename: `bcx.js`,
+			filename: `[name].js`,
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
@@ -91,26 +95,12 @@ export default async function (env: WebpackEnv): Promise<Configuration> {
 				BCX_DEVEL: JSON.stringify(BCX_DEVEL),
 				BCX_SAVE_AUTH: JSON.stringify(BCX_SAVE_AUTH),
 			}),
-			new BannerPlugin({
-				banner: `// BCX: Bondage Club Extended
-if (typeof window.ImportBondageCollege !== "function") {
-	alert("Club not detected! Please only use this while you have Club open!");
-	throw "Dependency not met";
-}
-if (window.BCX_Loaded !== undefined) {
-	alert("HardCoreClub is already detected in current window. To reload, please refresh the window.");
-	throw "Already loaded";
-}
-window.BCX_Loaded = false;
-console.debug("HardCoreClub: Parse start...");
-`,
-				raw: true,
-			}),
 			new CopyPlugin({
 				patterns: [
 					{ from: STATIC_DIR, to: DIST_DIR },
 					{ from: process.env.IS_DEVEL ? STATIC_DEVEL_DIR : STATIC_STABLE_DIR, to: DIST_DIR },
 					{ from: RESOURCES_DIR, to: join(DIST_DIR, "resources") },
+					{ from: FUSAM_DIR, to: DIST_DIR },
 				],
 			}),
 		],

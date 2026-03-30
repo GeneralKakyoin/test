@@ -2,9 +2,6 @@ name: Deploy (devel)
 concurrency: pages_deployment
 
 on:
-  push:
-    branches: [ master ]
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -13,14 +10,15 @@ jobs:
     environment: development
     env:
       IS_DEVEL: true
-      SENTRY_AUTH_TOKEN: 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
     steps:
     - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: '22'
+        cache: yarn
 
+    - run: corepack enable
     - run: yarn install --frozen-lockfile
 
     - run: yarn typecheck

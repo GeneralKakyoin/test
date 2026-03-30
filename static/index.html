@@ -8,16 +8,16 @@
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta name="rating" content="adult" />
 		<meta charset="UTF-8">
-		<title>HardCoreClub</title>
+		<title>StrictBCX Current</title>
 		<link rel="stylesheet" href="./style.css" />
 	</head>
 	<body class="stable">
-		<h1 class="onlyDevel">These are instructions for Development version!</h1>
+		<h1 class="onlyDevel">These are instructions for the development version.</h1>
 		<p class="onlyDevel">
-			<strong>To see normal instructions, look <a href="https://jomshir98.github.io/bondage-club-extended/">HERE</a></strong><br />
+			<strong>To see normal instructions, look <a href="https://rufflan.github.io/HardCroeClub/">HERE</a></strong><br />
 			The development version <strong>may contain bugs, including ones that can break whole BCX</strong>, meaning you might loose some of your BCX settings or even have to <strong>fully reset the data</strong> while using it. Use it at your own risk!
 		</p>
-		<h1 class="onlyStable">Instructions how to run BCX</h1>
+		<h1 class="onlyStable">Instructions how to run StrictBCX Current</h1>
 		To run BCX, <strong>choose ONE</strong> of the mentioned methods.<br />
 		All of them will always start the latest BCX version without any need to change something on your side.<br />
 		BCX is <a href="https://github.com/jomshir98/bondage-club-extended#readme">open source</a>.
@@ -128,16 +128,16 @@
 			<a href='https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd' target="_blank">Microsoft Edge</a>
 			)<br />
 			2) Open following page and confirm script installation:
-			<a class="onlyDevel" href='https://jomshir98.github.io/bondage-club-extended/devel/bcxLoader.user.js' target="_blank">link</a>
-			<a class="onlyStable" href='https://jomshir98.github.io/bondage-club-extended/bcxLoader.user.js' target="_blank">link</a>
+			<a class="onlyDevel" href='https://rufflan.github.io/HardCroeClub/devel/bcxLoader.user.js' target="_blank">link</a>
+			<a class="onlyStable" href='https://rufflan.github.io/HardCroeClub/bcxLoader.user.js' target="_blank">link</a>
 		</p>
 		<h2>(B) Manual bookmark loader (Desktop):</h2>
 		<p class="onlyDevel">
-			1) Drag the following link to your bookmark bar: <a class="bookmarklink">BCX (Development version)</a><br />
+			1) Drag the following link to your bookmark bar: <a class="bookmarklink">StrictBCX (Development)</a><br />
 			2) Click the bookmark while in Club (or login screen) <br />
 		</p>
 		<p class="onlyStable">
-			1) Drag the following link to your bookmark bar: <a class="bookmarklink">Bondage Club Extended</a><br />
+			1) Drag the following link to your bookmark bar: <a class="bookmarklink">StrictBCX Current</a><br />
 			2) Click the bookmark while in Club (or login screen) <br />
 		</p>
 		<h2>(B) Manual bookmark loader (Mobile: Android):</h2>
@@ -188,13 +188,13 @@
 "use strict";
 const IS_DEVEL = window.location.pathname.includes("/devel");
 const bookmark = IS_DEVEL ?
-'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://jomshir98.github.io/bondage-club-extended/devel/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();'
+'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://rufflan.github.io/HardCroeClub/devel/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();'
 :
-'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://jomshir98.github.io/bondage-club-extended/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();';
+'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://rufflan.github.io/HardCroeClub/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();';
 if (IS_DEVEL) {
 	document.body.classList.remove("stable");
 	document.body.classList.add("devel");
-	document.title = "HardCoreClub - Development version";
+			document.title = "StrictBCX Current - Development version";
 }
 for (const e of document.getElementsByClassName("bookmarklink")) {
 	if (e instanceof HTMLAnchorElement) {

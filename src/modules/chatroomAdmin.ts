@@ -3,7 +3,7 @@ import { modStorage, modStorageSync } from "./storage";
 import { BaseModule } from "./_BaseModule";
 import { icon_BCX } from "../resources";
 import { hookFunction, patchFunction } from "../patching";
-import { ChatRoomSendLocal, DrawImageEx } from "../utilsClub";
+import { ChatRoomSendLocal, DrawImageEx, isRoomLocked, isRoomPrivate } from "../utilsClub";
 import cloneDeep from "lodash-es/cloneDeep";
 import { RulesGetRuleState } from "./rules";
 import { InfoBeep } from "../utilsClub";
@@ -503,11 +503,8 @@ function ChatSettingsExtraClick(apply: (data: RoomTemplate) => void) {
 			return;
 		}
 		if (((MouseIn(X + 250, 835, 150, 64) && !modStorage.roomTemplates[i]) || (overwriteMode === i && MouseIn(X + 170, 835, 230, 64)))) {
-			// FIXME: remove post-R113
-			// eslint-disable-next-line deprecation/deprecation
-			const visibility = ChatAdminData?.Private ? ["Admin", "Whitelist"] as ServerChatRoomRole[] : ChatAdminData!.Visibility!;
-			// eslint-disable-next-line deprecation/deprecation
-			const access = ChatAdminData?.Locked ? ["Admin", "Whitelist"] as ServerChatRoomRole[] : ChatAdminData!.Access!;
+			const visibility = isRoomPrivate(ChatAdminData!) ? ChatRoomVisibilityMode.ADMIN_WHITELIST : ChatAdminData!.Visibility!;
+			const access = isRoomLocked(ChatAdminData!) ? ChatRoomAccessMode.ADMIN_WHITELIST : ChatAdminData!.Access!;
 			modStorage.roomTemplates[i] = {
 				Name: ElementValue("InputName") ? ElementValue("InputName").trim() : "",
 				Description: ElementValue("InputDescription") ? ElementValue("InputDescription").trim() : "",
@@ -556,11 +553,6 @@ function applyTemplate(template: RoomTemplate) {
 		ChatAdminVisibilityModeIndex = ChatAdminVisibilityModeValues.findIndex(elem => isEqual(elem, ChatAdminData!.Visibility!));
 		if (ChatAdminVisibilityModeIndex < 0) ChatAdminVisibilityModeIndex = 0;
 	}
-	// FIXME: remove post-R113
-	// eslint-disable-next-line deprecation/deprecation
-	ChatAdminData!.Private = template.Private;
-	// eslint-disable-next-line deprecation/deprecation
-	ChatAdminData!.Locked = template.Locked;
 	ChatAdminData!.Game = template.Game;
 	if (inputAdminList) inputAdminList.value = template.Admin?.toString() ?? "";
 	if (inputWhitelist) inputWhitelist.value = template.Whitelist?.toString() ?? "";
