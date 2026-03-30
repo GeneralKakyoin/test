@@ -109,7 +109,7 @@ export function initRules_bc_speech_control() {
 				modify: (info, message) => {
 					console.log(info);
 					console.log("speech_garble_whispers speech_control modify");
-					return state.isEnforced && info.type === "Whisper" ? callOriginal("SpeechGarble", [Player, message, true]) : message
+					return state.isEnforced && info.type === "Whisper" ? callOriginal("SpeechGarble", [Player, message, true]) : message;
 				},
 			});
 		},
@@ -838,9 +838,9 @@ export function initRules_bc_speech_control() {
 					if (state.isEnforced) {
 						const replaceSpokenMap = parseStringReplacingSyntax(state.customData?.stringWithReplacingSyntax);
 						const tmp_messages = message.split(" ");
-						tmp_messages.forEach((subject,index) => {
-						for (const [word, sub] of replaceSpokenMap.entries()) {
-								if(subject === word){
+						tmp_messages.forEach((subject, index) => {
+							for (const [word, sub] of replaceSpokenMap.entries()) {
+								if (subject === word) {
 									tmp_messages[index] = sub;
 								}
 							}

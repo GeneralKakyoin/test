@@ -952,7 +952,8 @@ export class ModuleCurses extends BaseModule {
 		if (GameVersion === "R121") {
 			hookFunction("ColorPickerDraw", 0, (args, next) => {
 				const Callback = args[5] as unknown as (Color: string) => void;
-				if (Callback === ItemColorOnPickerChange) {
+				const callbackName = (Callback as { name?: string; }).name;
+				if (callbackName === "ItemColorOnPickerChange") {
 					args[5] = (color: any) => {
 						if (ItemColorCharacter === Player && ItemColorItem && ItemColorState) {
 							// Original code

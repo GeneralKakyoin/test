@@ -557,8 +557,7 @@ export function isRoomPrivate(room: ServerChatRoomData | ServerChatRoomSearchDat
 	if (typeof ChatRoomDataIsPrivate !== "undefined") {
 		return ChatRoomDataIsPrivate(room);
 	}
-	const legacyRoom = room as typeof room & { Private?: boolean };
-	// eslint-disable-next-line deprecation/deprecation
+	const legacyRoom = room as typeof room & { Private?: boolean; };
 	return (room.Visibility && !CommonArraysEqual(room.Visibility, ChatRoomVisibilityMode.PUBLIC)) ?? legacyRoom.Private ?? false;
 }
 
@@ -566,7 +565,6 @@ export function isRoomLocked(room: ServerChatRoomData | ServerChatRoomSearchData
 	if (typeof ChatRoomDataIsLocked !== "undefined") {
 		return ChatRoomDataIsLocked(room);
 	}
-	const legacyRoom = room as typeof room & { Locked?: boolean };
-	// eslint-disable-next-line deprecation/deprecation
+	const legacyRoom = room as typeof room & { Locked?: boolean; };
 	return (room.Access && !CommonArraysEqual(room.Access, ChatRoomAccessMode.PUBLIC)) ?? legacyRoom.Locked ?? false;
 }

@@ -119,7 +119,6 @@ export class ModuleGUI extends BaseModule {
 
 		const unloadInfoSheet = () => {
 			// @ts-expect-error waiting on bc-stubs
-			// eslint-disable-next-line
 			if (window.InformationSheetUnload) InformationSheetUnload();
 		};
 

@@ -19,7 +19,7 @@ export function preflightStrictBCXLoad(label: string) {
 
 	const currentScriptSource = getCurrentScriptSource();
 	if (currentScriptSource) {
-		(window as typeof window & { BCX_SOURCE?: string }).BCX_SOURCE ??= currentScriptSource;
+		(window as typeof window & { BCX_SOURCE?: string; }).BCX_SOURCE ??= currentScriptSource;
 	}
 
 	console.debug(`StrictBCX: Parse start (${label})...`);
