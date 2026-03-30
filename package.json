@@ -1,8 +1,8 @@
 {
 	"name": "strict-bcx-current",
 	"version": "1.1.12-STRICT",
-	"repository": "git@github.com:Rufflan/HardCroeClub.git",
-	"author": "Rufflan & contributors",
+	"repository": "git@github.com:GeneralKakyoin/test.git",
+	"author": "GeneralKakyoin & contributors",
 	"license": "GPL-3.0",
 	"private": true,
 	"engines": {

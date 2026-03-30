@@ -14,7 +14,7 @@
 	<body class="stable">
 		<h1 class="onlyDevel">These are instructions for the development version.</h1>
 		<p class="onlyDevel">
-			<strong>To see normal instructions, look <a href="https://rufflan.github.io/HardCroeClub/">HERE</a></strong><br />
+			<strong>To see normal instructions, look <a href="https://generalkakyoin.github.io/test/">HERE</a></strong><br />
 			The development version <strong>may contain bugs, including ones that can break whole BCX</strong>, meaning you might loose some of your BCX settings or even have to <strong>fully reset the data</strong> while using it. Use it at your own risk!
 		</p>
 		<h1 class="onlyStable">Instructions how to run StrictBCX Current</h1>
@@ -128,8 +128,8 @@
 			<a href='https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd' target="_blank">Microsoft Edge</a>
 			)<br />
 			2) Open following page and confirm script installation:
-			<a class="onlyDevel" href='https://rufflan.github.io/HardCroeClub/devel/bcxLoader.user.js' target="_blank">link</a>
-			<a class="onlyStable" href='https://rufflan.github.io/HardCroeClub/bcxLoader.user.js' target="_blank">link</a>
+			<a class="onlyDevel" href='https://generalkakyoin.github.io/test/devel/bcxLoader.user.js' target="_blank">link</a>
+			<a class="onlyStable" href='https://generalkakyoin.github.io/test/bcxLoader.user.js' target="_blank">link</a>
 		</p>
 		<h2>(B) Manual bookmark loader (Desktop):</h2>
 		<p class="onlyDevel">
@@ -188,9 +188,9 @@
 "use strict";
 const IS_DEVEL = window.location.pathname.includes("/devel");
 const bookmark = IS_DEVEL ?
-'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://rufflan.github.io/HardCroeClub/devel/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();'
+'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://generalkakyoin.github.io/test/devel/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();'
 :
-'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://rufflan.github.io/HardCroeClub/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();';
+'javascript:(function(){if(window.BCX_Loaded===undefined){let n=document.createElement("script");n.setAttribute("language","JavaScript");n.setAttribute("crossorigin","anonymous");n.setAttribute("src","https://generalkakyoin.github.io/test/bcx.js?_="+Date.now());n.onload=()=>n.remove();document.head.appendChild(n);}})();';
 if (IS_DEVEL) {
 	document.body.classList.remove("stable");
 	document.body.classList.add("devel");

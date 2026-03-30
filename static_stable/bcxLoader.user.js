@@ -7,11 +7,11 @@
 // @include      /^https:\/\/(www\.)?bondageprojects\.elementfx\.com\/R\d+\/(BondageClub|\d+)(\/((index|\d+)\.html)?)?$/
 // @include      /^https:\/\/(www\.)?bondage-europe\.com\/R\d+\/(BondageClub|\d+)(\/((index|\d+)\.html)?)?$/
 // @include      /^https:\/\/(www\.)?bondage-asia\.com\/club\/R\d+(\/((index|\d+)\.html)?)?$/
-// @homepageURL  https://github.com/Rufflan/HardCroeClub
-// @supportURL   https://github.com/Rufflan/HardCroeClub/issues
-// @source       https://github.com/Rufflan/HardCroeClub
-// @updateURL    https://rufflan.github.io/HardCroeClub/bcxLoader.user.js
-// @downloadURL  https://rufflan.github.io/HardCroeClub/bcxLoader.user.js
+// @homepageURL  https://github.com/GeneralKakyoin/test
+// @supportURL   https://github.com/GeneralKakyoin/test/issues
+// @source       https://github.com/GeneralKakyoin/test
+// @updateURL    https://generalkakyoin.github.io/test/bcxLoader.user.js
+// @downloadURL  https://generalkakyoin.github.io/test/bcxLoader.user.js
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
@@ -23,7 +23,7 @@ setTimeout(
 			const n = document.createElement("script");
 			n.setAttribute("language", "JavaScript");
 			n.setAttribute("crossorigin", "anonymous");
-			n.setAttribute("src", "https://rufflan.github.io/HardCroeClub/bcx.js");
+			n.setAttribute("src", "https://generalkakyoin.github.io/test/bcx.js");
 			n.onload = () => n.remove();
 			document.head.appendChild(n);
 		}
