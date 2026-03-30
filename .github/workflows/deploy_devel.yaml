@@ -4,6 +4,9 @@ concurrency: pages_deployment
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,10 +32,10 @@ jobs:
         BCX_SAVE_AUTH: ${{ secrets.BCX_SAVE_AUTH }}
 
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4.7.3
+      uses: peaceiris/actions-gh-pages@v4
       with:
-        branch: gh-pages
-        folder: dist
-        target-folder: devel
-        git-config-name: github-actions[bot]
-        git-config-email: github-actions[bot]@users.noreply.github.com
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./dist
+        destination_dir: devel
+        keep_files: true
